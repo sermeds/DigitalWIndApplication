@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/home_page.dart';
-import 'package:digital_wind_application/login_page.dart';
-import 'package:digital_wind_application/registration_page.dart';
+import 'package:digital_wind_application/pages/sign_up_sign_on/login_page.dart';
+import 'package:digital_wind_application/pages/sign_up_sign_on/registration_agreement_page.dart';
+import 'package:digital_wind_application/pages/sign_up_sign_on/registration_continue.dart';
+import 'package:digital_wind_application/pages/sign_up_sign_on/registration_page.dart';
 import 'package:digital_wind_application/resources/themes/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,14 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               path: '',
               page: RegistrationRoute.page,
+            ),
+            AutoRoute(
+              path: '',
+              page: RegistrationAgreementRoute.page,
+            ),
+            AutoRoute(
+              path: '',
+              page: RegistrationContinueRoute.page,
             ),
             AutoRoute(
               path: '',

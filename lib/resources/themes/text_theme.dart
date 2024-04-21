@@ -22,12 +22,12 @@ class AppTextTheme {
         color: CustomColor.highlightLight),
     labelLarge: const TextStyle().copyWith(
         // Текст кнопки
-        fontSize: 14.0,
+        fontSize: 16.0,
         fontWeight: FontWeight.bold,
         color: CustomColor.buttonTextLight),
     labelMedium: const TextStyle().copyWith(
         // Lable
-        fontSize: 12.0,
+        fontSize: 14.0,
         fontWeight: FontWeight.bold,
         color: CustomColor.textLight),
     labelSmall: const TextStyle().copyWith(
@@ -78,12 +78,12 @@ class AppTextTheme {
         color: CustomColor.highlightDark),
     labelLarge: const TextStyle().copyWith(
         // Текст кнопки
-        fontSize: 14.0,
+        fontSize: 16.0,
         fontWeight: FontWeight.bold,
         color: CustomColor.buttonTextDark),
     labelMedium: const TextStyle().copyWith(
         // Lable
-        fontSize: 12.0,
+        fontSize: 14.0,
         fontWeight: FontWeight.bold,
         color: CustomColor.textDark),
     labelSmall: const TextStyle().copyWith(
