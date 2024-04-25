@@ -3,6 +3,7 @@ import 'package:digital_wind_application/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
+import 'package:http/http.dart' as http;
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
@@ -27,8 +28,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login(BuildContext context) {
-    // ignore: dead_code
     if (false) {
+      //Сюда результат
+      //http.get()
       // Запрос БД (loginController.text; и passwordController.text;)
       context.router.popUntil((route) => false);
       context.router.push(const HomeRoute());
