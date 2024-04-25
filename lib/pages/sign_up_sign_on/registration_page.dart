@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:digital_wind_application/pages/sign_up_sign_on/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as path;
-import 'package:sqflite/sqflite.dart';
+import 'package:flutter/services.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 @RoutePage()
 class RegistrationPage extends StatefulWidget {
@@ -16,20 +16,29 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   @override
   void initState() {
+    phoneController.changeCountry(IsoCode.RU);
     super.initState();
   }
 
-  Future<String> get _dbPath async {
-    // Get a location using getDatabasesPath
-    var databasesPath = await getDatabasesPath();
-    String dbPath = path.join(databasesPath, 'demo2.db');
-
-    return dbPath;
-  }
-
   void registrationOneStep(BuildContext context) {
-    context.router.push(const RegistrationAgreementRoute());
+    phoneController.value.international;
+    loginController.text;
+    passwordController.text;
+    if (true) {
+      context.router.push(const RegistrationAgreementRoute());
+    }
   }
+
+  bool loginOriginality() {
+    if (loginController.text.toUpperCase() != "Kain".toUpperCase()) return true;
+    return false;
+  }
+
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController loginController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  PhoneController phoneController = PhoneController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +71,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 padding: EdgeInsets.only(bottom: 35),
               ),
               Form(
+                key: _formKey,
                 child: Column(
                   children: [
                     Container(
@@ -81,6 +91,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     Theme.of(context).textTheme.labelMedium),
                             keyboardType: TextInputType.name,
                             style: Theme.of(context).textTheme.labelMedium,
+                            controller: loginController,
+                            validator: (value) {
+                              RegExp regex = RegExp(r'\W');
+                              if (value == null || value.isEmpty) {
+                                return 'Введите логин!';
+                              } else if (value.length < 4 ||
+                                  regex.hasMatch(value)) {
+                                return 'Логин некорректен!';
+                              } else if (!loginOriginality()) {
+                                return 'Данный логин уже используется!';
+                              }
+                              return null;
+                            },
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -89,6 +112,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     Theme.of(context).textTheme.labelMedium),
                             obscureText: true,
                             style: Theme.of(context).textTheme.labelMedium,
+                            controller: passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Введите пароль!';
+                              } else if (value.length < 8 ||
+                                  !isPasswordValid(value)) {
+                                return 'Пароль некорректен!';
+                              }
+                              return null;
+                            },
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -97,15 +130,35 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     Theme.of(context).textTheme.labelMedium),
                             obscureText: true,
                             style: Theme.of(context).textTheme.labelMedium,
+                            controller: confirmPasswordController,
+                            validator: (value) {
+                              if (passwordController.text !=
+                                  confirmPasswordController.text) {
+                                return 'Пароли не совавдвют!';
+                              }
+                              return null;
+                            },
                           ),
-                          TextFormField(
+                          PhoneFormField(
+                            autovalidateMode: AutovalidateMode.disabled,
                             decoration: InputDecoration(
                                 labelText: "Телефон",
-                                hintText: "+7(xxx)xxx-xx-xx",
                                 labelStyle:
                                     Theme.of(context).textTheme.labelMedium),
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(13)
+                            ],
                             keyboardType: TextInputType.phone,
                             style: Theme.of(context).textTheme.labelMedium,
+                            controller: phoneController,
+                            validator: (value) {
+                              if (value!.nsn.isEmpty || value.nsn == "") {
+                                return 'Введите номер телефона!';
+                              } else if (value.nsn.length != 10) {
+                                return 'Номер не корректен';
+                              }
+                              return null;
+                            },
                           ),
                         ],
                       ),
@@ -115,7 +168,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        registrationOneStep(context);
+                        if (_formKey.currentState!.validate()) {
+                          registrationOneStep(context);
+                        }
                       },
                       style: ButtonStyle(
                         alignment: Alignment.center,

@@ -1,11 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
-import 'package:digital_wind_application/utilitys/custom_date_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:digital_wind_application/components/custom_date_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:path/path.dart' as path;
-import 'package:sqflite/sqflite.dart';
 
 @RoutePage()
 class RegistrationContinuePage extends StatefulWidget {
@@ -21,19 +17,19 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
     super.initState();
   }
 
-  Future<String> get _dbPath async {
-    // Get a location using getDatabasesPath
-    var databasesPath = await getDatabasesPath();
-    String dbPath = path.join(databasesPath, 'demo2.db');
-
-    return dbPath;
-  }
-
   void registrationThreeStep(BuildContext context) {
-    context.router.replaceAll([const HomeRoute()]);
+    // ignore: dead_code
+    if (false) {
+      //var sex = currentGender == 0 ? "Male" : "Female";
+      // Запрос БД (loginController.text; и passwordController.text;)
+      context.router.replaceAll([const HomeRoute()]);
+    }
   }
 
-  var dateInput = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController dopNameController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
   var currentGender = 0;
 
   @override
@@ -66,99 +62,133 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 35),
               ),
-              Container(
-                width: 300,
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: Theme.of(context).dialogBackgroundColor,
-                ),
+              Form(
+                key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Имя",
-                        labelStyle: Theme.of(context).textTheme.labelMedium,
-                      ),
-                      keyboardType: TextInputType.name,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Фамилия",
-                        labelStyle: Theme.of(context).textTheme.labelMedium,
-                      ),
-                      keyboardType: TextInputType.name,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    CustomDatePicker(
-                      textEditingController: dateInput,
-                      text: "Дата рождения",
-                    ),
                     Container(
-                      padding: const EdgeInsets.only(top: 20),
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Пол",
+                      width: 300,
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
+                        color: Theme.of(context).dialogBackgroundColor,
+                      ),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Имя",
+                              labelStyle:
+                                  Theme.of(context).textTheme.labelMedium,
+                            ),
+                            keyboardType: TextInputType.name,
+                            style: Theme.of(context).textTheme.labelMedium,
+                            controller: nameController,
+                            validator: (value) {
+                              RegExp regex = RegExp(r'^[а-яА-ЯёЁa-zA-Z]+$');
+                              if (value == null || value.isEmpty) {
+                                return 'Введите имя!';
+                              } else if (value.length < 2 ||
+                                  !regex.hasMatch(value)) {
+                                return 'Имя не корректно!';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Фамилия",
+                              labelStyle:
+                                  Theme.of(context).textTheme.labelMedium,
+                            ),
+                            keyboardType: TextInputType.name,
+                            style: Theme.of(context).textTheme.labelMedium,
+                            controller: dopNameController,
+                            validator: (value) {
+                              RegExp regex = RegExp(r'^[а-яА-ЯёЁa-zA-Z]+$');
+                              if (value == null || value.isEmpty) {
+                                return 'Введите фамилию!';
+                              } else if (value.length < 2 ||
+                                  !regex.hasMatch(value)) {
+                                return 'Фамилия не корректна!';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomDatePicker(
+                            textEditingController: dateController,
+                            text: "Дата рождения",
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(top: 20),
+                            alignment: Alignment.centerLeft,
+                            child: const Text(
+                              "Пол",
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 135,
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: const Text('Муж.'),
+                                  leading: Radio<int>(
+                                    value: 0,
+                                    groupValue: currentGender,
+                                    onChanged: (value) {
+                                      setState(
+                                        () {
+                                          currentGender = value!;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 135,
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: const Text('Жен.'),
+                                  leading: Radio<int>(
+                                    value: 1,
+                                    groupValue: currentGender,
+                                    onChanged: (value) {
+                                      setState(
+                                        () {
+                                          currentGender = value!;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 135,
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            title: const Text('Муж.'),
-                            leading: Radio<int>(
-                              value: 0,
-                              groupValue: currentGender,
-                              onChanged: (value) {
-                                setState(
-                                  () {
-                                    currentGender = value!;
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 135,
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            title: const Text('Жен.'),
-                            leading: Radio<int>(
-                              value: 1,
-                              groupValue: currentGender,
-                              onChanged: (value) {
-                                setState(
-                                  () {
-                                    currentGender = value!;
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          registrationThreeStep(context);
+                        }
+                      },
+                      style: ButtonStyle(
+                          alignment: Alignment.center,
+                          backgroundColor: MaterialStateColor.resolveWith(
+                              (states) => Theme.of(context).highlightColor)),
+                      child: Text(
+                        "Завершить регистрацию",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
                     ),
                   ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  registrationThreeStep(context);
-                },
-                style: ButtonStyle(
-                    alignment: Alignment.center,
-                    backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => Theme.of(context).highlightColor)),
-                child: Text(
-                  "Завершить регистрацию",
-                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
               const Padding(

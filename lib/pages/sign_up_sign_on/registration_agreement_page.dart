@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as path;
-import 'package:sqflite/sqflite.dart';
 
 @RoutePage()
 class RegistrationAgreementPage extends StatefulWidget {
@@ -16,14 +14,6 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<String> get _dbPath async {
-    // Get a location using getDatabasesPath
-    var databasesPath = await getDatabasesPath();
-    String dbPath = path.join(databasesPath, 'demo2.db');
-
-    return dbPath;
   }
 
   void registrationStepTwo(BuildContext context) {

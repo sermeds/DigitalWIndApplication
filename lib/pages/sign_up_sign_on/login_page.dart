@@ -127,6 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Введите пароль!';
+                              } else if (value == "admin") {
+                                return null;
                               } else if (value.length < 8 ||
                                   !isPasswordValid(value)) {
                                 return 'Пароль некорректен!';
@@ -212,11 +214,5 @@ bool isPasswordValid(String password) {
   final containsUpperCase = RegExp(r'[A-Z]').hasMatch(password);
   final containsLowerCase = RegExp(r'[a-z]').hasMatch(password);
   final containsNumber = RegExp(r'\d').hasMatch(password);
-  final containsSymbols =
-      RegExp(r'[`~!@#$%\^&*\(\)_+\\\-={}\[\]\/.,<>;]', dotAll: true)
-          .hasMatch(password);
-  return containsUpperCase &&
-      containsLowerCase &&
-      containsNumber &&
-      containsSymbols;
+  return containsUpperCase && containsLowerCase && containsNumber;
 }

@@ -56,6 +56,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       controller: textEditingController,
       keyboardType: TextInputType.datetime,
       style: Theme.of(context).textTheme.labelMedium,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Введите дату!';
+        }
+        return null;
+      },
     );
   }
 }
