@@ -9,6 +9,7 @@ class CustomColor {
   static const subTextLight = Color(0xFF51443A);
   static const dopLight = Color(0xFFDFE7B2);
   static const buttonTextLight = Color(0xFFFFFFFF);
+  static const errorLight = Color(0xFFba1a1a);
 
   //Dark
   static const primaryDark = Color(0xFF19120C);
@@ -18,4 +19,5 @@ class CustomColor {
   static const subTextDark = Color(0xFFD6C3B6);
   static const dopDark = Color(0xFF434A22);
   static const buttonTextDark = Color(0xFF000000);
+  static const errorDark = Color(0xFFffb4ab);
 }

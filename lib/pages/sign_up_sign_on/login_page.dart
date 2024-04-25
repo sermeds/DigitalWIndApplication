@@ -27,13 +27,25 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login(BuildContext context) {
-    context.router.popUntil((route) => false);
-    context.router.push(const HomeRoute());
+    // ignore: dead_code
+    if (false) {
+      // Запрос БД (loginController.text; и passwordController.text;)
+      context.router.popUntil((route) => false);
+      context.router.push(const HomeRoute());
+      loginErrorController.text = "";
+    } else {
+      loginErrorController.text = "Неправильный логин или пароль.";
+    }
   }
 
   String getAdvice() {
     return "Не кусай сиську, которая тебя кормит!";
   }
+
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController loginController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController loginErrorController = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -65,45 +77,91 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 35),
               ),
-              Container(
-                width: 300,
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: Theme.of(context).dialogBackgroundColor,
-                ),
+              Form(
+                key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Логин",
-                        labelStyle: Theme.of(context).textTheme.labelMedium,
+                    Container(
+                      width: 300,
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
+                        color: Theme.of(context).dialogBackgroundColor,
                       ),
-                      keyboardType: TextInputType.emailAddress,
-                      style: Theme.of(context).textTheme.labelMedium,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Логин",
+                              labelStyle:
+                                  Theme.of(context).textTheme.labelMedium,
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                            style: Theme.of(context).textTheme.labelMedium,
+                            maxLength: 30,
+                            controller: loginController,
+                            validator: (value) {
+                              RegExp regex = RegExp(r'\W');
+                              if (value == null || value.isEmpty) {
+                                return 'Введите логин!';
+                              } else if (value.length < 4 ||
+                                  regex.hasMatch(value)) {
+                                return 'Такого логина не существует';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Пароль",
+                              labelStyle:
+                                  Theme.of(context).textTheme.labelMedium,
+                            ),
+                            obscureText: true,
+                            style: Theme.of(context).textTheme.labelMedium,
+                            maxLength: 50,
+                            controller: passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Введите пароль!';
+                              } else if (value.length < 8 ||
+                                  !isPasswordValid(value)) {
+                                return 'Пароль некорректен!';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            controller: loginErrorController,
+                            textAlign: TextAlign.center,
+                            enabled: false,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Пароль",
-                        labelStyle: Theme.of(context).textTheme.labelMedium,
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          login(context);
+                        }
+                      },
+                      style: Theme.of(context).elevatedButtonTheme.style,
+                      child: Text(
+                        "Вход",
+                        style: Theme.of(context).textTheme.labelLarge,
                       ),
-                      obscureText: true,
-                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  login(context);
-                },
-                style: Theme.of(context).elevatedButtonTheme.style,
-                child: Text(
-                  "Вход",
-                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
               const Padding(
@@ -146,4 +204,17 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+bool isPasswordValid(String password) {
+  final containsUpperCase = RegExp(r'[A-Z]').hasMatch(password);
+  final containsLowerCase = RegExp(r'[a-z]').hasMatch(password);
+  final containsNumber = RegExp(r'\d').hasMatch(password);
+  final containsSymbols =
+      RegExp(r'[`~!@#$%\^&*\(\)_+\\\-={}\[\]\/.,<>;]', dotAll: true)
+          .hasMatch(password);
+  return containsUpperCase &&
+      containsLowerCase &&
+      containsNumber &&
+      containsSymbols;
 }

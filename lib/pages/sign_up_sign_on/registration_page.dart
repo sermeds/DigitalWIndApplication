@@ -61,61 +61,73 @@ class _RegistrationPageState extends State<RegistrationPage> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 35),
               ),
-              Container(
-                width: 300,
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: Theme.of(context).dialogBackgroundColor,
-                ),
+              Form(
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Логин",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      keyboardType: TextInputType.emailAddress,
-                      style: Theme.of(context).textTheme.labelMedium,
+                    Container(
+                      width: 300,
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
+                        color: Theme.of(context).dialogBackgroundColor,
+                      ),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: "Логин",
+                                labelStyle:
+                                    Theme.of(context).textTheme.labelMedium),
+                            keyboardType: TextInputType.name,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: "Пароль",
+                                labelStyle:
+                                    Theme.of(context).textTheme.labelMedium),
+                            obscureText: true,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: "Потверждение пароля",
+                                labelStyle:
+                                    Theme.of(context).textTheme.labelMedium),
+                            obscureText: true,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: "Телефон",
+                                hintText: "+7(xxx)xxx-xx-xx",
+                                labelStyle:
+                                    Theme.of(context).textTheme.labelMedium),
+                            keyboardType: TextInputType.phone,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ],
+                      ),
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Пароль",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      obscureText: true,
-                      style: Theme.of(context).textTheme.labelMedium,
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20),
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Потверждение пароля",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      obscureText: true,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Телефон",
-                          hintText: "+7(xxx)xxx-xx-xx",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      style: Theme.of(context).textTheme.labelMedium,
+                    ElevatedButton(
+                      onPressed: () {
+                        registrationOneStep(context);
+                      },
+                      style: ButtonStyle(
+                        alignment: Alignment.center,
+                        backgroundColor: MaterialStateColor.resolveWith(
+                            (states) => Theme.of(context).highlightColor),
+                      ),
+                      child: Text(
+                        "Продолжить регистрацию",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
                     ),
                   ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  registrationOneStep(context);
-                },
-                style: ButtonStyle(
-                  alignment: Alignment.center,
-                  backgroundColor: MaterialStateColor.resolveWith(
-                      (states) => Theme.of(context).highlightColor),
-                ),
-                child: Text(
-                  "Продолжить регистрацию",
-                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
               const Padding(

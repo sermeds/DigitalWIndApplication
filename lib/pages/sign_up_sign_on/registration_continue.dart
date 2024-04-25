@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
+import 'package:digital_wind_application/utilitys/custom_date_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
 
@@ -29,6 +32,9 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
   void registrationThreeStep(BuildContext context) {
     context.router.replaceAll([const HomeRoute()]);
   }
+
+  var dateInput = TextEditingController();
+  var currentGender = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -71,33 +77,70 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: "Имя",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      keyboardType: TextInputType.emailAddress,
+                        labelText: "Имя",
+                        labelStyle: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      keyboardType: TextInputType.name,
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: "Фамилия",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      keyboardType: TextInputType.emailAddress,
+                        labelText: "Фамилия",
+                        labelStyle: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      keyboardType: TextInputType.name,
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
-                    InputDatePickerFormField(
-                        firstDate: DateTime(2000), lastDate: DateTime(2024)),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Дата рождения",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      keyboardType: TextInputType.emailAddress,
-                      style: Theme.of(context).textTheme.labelMedium,
+                    CustomDatePicker(
+                      textEditingController: dateInput,
+                      text: "Дата рождения",
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Пол",
-                          labelStyle: Theme.of(context).textTheme.labelMedium),
-                      keyboardType: TextInputType.emailAddress,
-                      style: Theme.of(context).textTheme.labelMedium,
+                    Container(
+                      padding: const EdgeInsets.only(top: 20),
+                      alignment: Alignment.centerLeft,
+                      child: const Text(
+                        "Пол",
+                      ),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 135,
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text('Муж.'),
+                            leading: Radio<int>(
+                              value: 0,
+                              groupValue: currentGender,
+                              onChanged: (value) {
+                                setState(
+                                  () {
+                                    currentGender = value!;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 135,
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text('Жен.'),
+                            leading: Radio<int>(
+                              value: 1,
+                              groupValue: currentGender,
+                              onChanged: (value) {
+                                setState(
+                                  () {
+                                    currentGender = value!;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
