@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
@@ -57,38 +58,34 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 0),
-              ),
-              Image.asset(
-                "lib/resources/images/appIcon.png",
-                width: 150,
-                height: 150,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 25),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.5.h),
+                child: Image.asset(
+                  "lib/resources/images/appIcon.png",
+                  width: 35.w,
+                  height: 17.5.h,
+                ),
               ),
               SizedBox(
-                width: 300,
+                width: 80.h,
                 child: Text(
                   "DigitalWind Application",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 35),
+              Padding(
+                padding: EdgeInsets.only(bottom: 3.h),
               ),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     Container(
-                      width: 300,
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      width: 80.w,
+                      padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 0),
                       decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
+                        borderRadius: BorderRadius.all(Radius.circular(7.5.w)),
                         color: Theme.of(context).dialogBackgroundColor,
                       ),
                       child: Column(
@@ -150,8 +147,8 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 3.h),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -168,31 +165,38 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10),
-              ),
-              SizedBox(
-                width: 200,
+              Container(
+                padding: EdgeInsets.only(top: 1.h, bottom: 3.h),
+                width: 50.w,
                 child: TextButton(
-                  child: Text(
-                    "Первый раз тут? Пройдите регистрацию!",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.labelMedium,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Первый раз тут?",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      Text(
+                        "Пройдите регистрацию!",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelMedium,
+                      )
+                    ],
                   ),
                   onPressed: () {
                     context.router.push(const RegistrationRoute());
                   },
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 40),
-              ),
               SizedBox(
-                width: 350,
+                width: 80.w,
                 child: Container(
-                  padding: const EdgeInsets.all(10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.5.h),
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(7.5.w),
+                    ),
                     color: Theme.of(context).dialogBackgroundColor,
                   ),
                   child: Text(

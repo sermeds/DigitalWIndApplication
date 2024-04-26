@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 @RoutePage()
 class RegistrationAgreementPage extends StatefulWidget {
@@ -32,32 +33,29 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 25),
-              ),
-              Image.asset(
-                "lib/resources/images/appIcon.png",
-                height: 75,
-                width: 75,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 5),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.h),
+                child: Image.asset(
+                  "lib/resources/images/appIcon.png",
+                  height: 17.5.w,
+                  width: 10.h,
+                ),
               ),
               SizedBox(
-                width: 300,
+                width: 80.w,
                 child: Text(
                   "DigitalWind Application",
                   style: Theme.of(context).textTheme.displaySmall,
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
+              Padding(
+                padding: EdgeInsets.only(bottom: 4.w),
               ),
               Container(
-                width: 375,
-                height: 525,
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
+                width: 80.w,
+                height: 50.h,
+                padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 1.h),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(25)),
                   color: Theme.of(context).dialogBackgroundColor,
@@ -69,13 +67,13 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 2.h),
                     ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Container(
-                          padding: const EdgeInsets.only(bottom: 10, top: 10),
+                          padding: EdgeInsets.symmetric(vertical: 1.h),
                           child: Text(getAgreementText()),
                         ),
                       ),
@@ -83,25 +81,22 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  registrationStepTwo(context);
-                },
-                style: ButtonStyle(
-                  alignment: Alignment.center,
-                  backgroundColor: MaterialStateColor.resolveWith(
-                      (states) => Theme.of(context).highlightColor),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.h),
+                child: ElevatedButton(
+                  onPressed: () {
+                    registrationStepTwo(context);
+                  },
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    backgroundColor: MaterialStateColor.resolveWith(
+                        (states) => Theme.of(context).highlightColor),
+                  ),
+                  child: Text(
+                    "Принять условия",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-                child: Text(
-                  "Принять условия",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -117,8 +112,8 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10),
+              Padding(
+                padding: EdgeInsets.only(bottom: 2.h),
               ),
             ],
           ),

@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:digital_wind_application/components/custom_date_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 @RoutePage()
 class RegistrationContinuePage extends StatefulWidget {
@@ -40,38 +43,34 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 25),
-              ),
-              Image.asset(
-                "lib/resources/images/appIcon.png",
-                height: 150,
-                width: 150,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 25),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.5.h),
+                child: Image.asset(
+                  "lib/resources/images/appIcon.png",
+                  width: 35.w,
+                  height: 17.5.h,
+                ),
               ),
               SizedBox(
-                width: 300,
+                width: 80.h,
                 child: Text(
                   "DigitalWind Application",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 35),
+              Padding(
+                padding: EdgeInsets.only(bottom: 3.h),
               ),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     Container(
-                      width: 300,
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 30),
+                      width: 80.w,
+                      padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 0),
                       decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
+                        borderRadius: BorderRadius.all(Radius.circular(7.5.w)),
                         color: Theme.of(context).dialogBackgroundColor,
                       ),
                       child: Column(
@@ -121,57 +120,62 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                             text: "Дата рождения",
                           ),
                           Container(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: EdgeInsets.only(top: 2.h),
                             alignment: Alignment.centerLeft,
                             child: const Text(
                               "Пол",
                             ),
                           ),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 135,
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: const Text('Муж.'),
-                                  leading: Radio<int>(
-                                    value: 0,
-                                    groupValue: currentGender,
-                                    onChanged: (value) {
-                                      setState(
-                                        () {
-                                          currentGender = value!;
-                                        },
-                                      );
-                                    },
+                          Container(
+                            width: 80.w,
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 30.w,
+                                  child: ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: const Text('Муж.'),
+                                    leading: Radio<int>(
+                                      value: 0,
+                                      groupValue: currentGender,
+                                      onChanged: (value) {
+                                        setState(
+                                          () {
+                                            currentGender = value!;
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 135,
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: const Text('Жен.'),
-                                  leading: Radio<int>(
-                                    value: 1,
-                                    groupValue: currentGender,
-                                    onChanged: (value) {
-                                      setState(
-                                        () {
-                                          currentGender = value!;
-                                        },
-                                      );
-                                    },
+                                SizedBox(
+                                  width: 30.w,
+                                  child: ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: const Text('Жен.'),
+                                    leading: Radio<int>(
+                                      value: 1,
+                                      groupValue: currentGender,
+                                      onChanged: (value) {
+                                        setState(
+                                          () {
+                                            currentGender = value!;
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 4.h),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -191,25 +195,22 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context.router.replaceAll([const LoginRoute()]);
-                },
-                style: ButtonStyle(
-                  alignment: Alignment.center,
-                  backgroundColor: MaterialStateColor.resolveWith(
-                      (states) => Theme.of(context).highlightColor),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.h),
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.router.replaceAll([const LoginRoute()]);
+                  },
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    backgroundColor: MaterialStateColor.resolveWith(
+                        (states) => Theme.of(context).highlightColor),
+                  ),
+                  child: Text(
+                    "Отменить регистрацию",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-                child: Text(
-                  "Отменить регистрацию",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10),
               ),
             ],
           ),
