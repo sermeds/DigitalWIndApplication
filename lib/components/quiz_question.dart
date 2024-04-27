@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class QuizQuestion extends StatefulWidget {
-  const QuizQuestion({super.key, required this.question, required this.answers});
+  const QuizQuestion({super.key, required this.question, required this.answers, this.controller});
 
   final String question;
 
   final List<String> answers;
+
+  final ValueNotifier? controller;
 
   @override
   State<StatefulWidget> createState() {
@@ -19,9 +21,9 @@ class QuizQuestionState extends State<QuizQuestion> {
   @override
   Widget build(BuildContext context) {
     return Form(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Text(widget.question),
-      ...widget.answers.map((answer) => Row(children: [
+      ...widget.answers.map((answer) => Row(mainAxisSize: MainAxisSize.min,children: [
             Radio<String>(
                 value: answer,
                 groupValue: _selected,
@@ -29,9 +31,12 @@ class QuizQuestionState extends State<QuizQuestion> {
                   setState(() {
                     _selected = answer;
                   });
+                  if(widget.controller != null) {
+                    widget.controller!.value = answer;
+                  }
                 }),
             Text(answer)
-          ])),
+          ],)),
     ]));
   }
 }
