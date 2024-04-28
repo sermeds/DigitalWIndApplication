@@ -15,7 +15,23 @@ class TestsList extends StatefulWidget {
           answers: ["Male", "Female", "Yes", "No"],
           rightAnswer: 2)
     ]),
-    Test(title: "Goodbye", questions: [], difficulty: Difficulty.easy)
+    Test(
+        title: "Goodbye",
+        questions: [
+          Question(
+              content: "One",
+              answers: ["Male", "Female", "Yes", "No"],
+              rightAnswer: 2),
+          Question(
+              content: "Two",
+              answers: ["Male", "Female", "Yes", "No"],
+              rightAnswer: 2),
+          Question(
+              content: "Three",
+              answers: ["Male", "Female", "Yes", "No"],
+              rightAnswer: 2)
+        ],
+        difficulty: Difficulty.easy)
   ];
 
   @override
@@ -35,8 +51,12 @@ class _TestsListState extends State<TestsList> {
                   title: Text(
                       "${widget.tests[index].title} (${widget.tests[index].difficulty})"),
                   subtitle: widget.tests[index].percent != null
-                      ? Text(widget.tests[index].percent.toString())
+                      ? widget.tests[index].percent == 100
+                          ? const Text("Тест полностью пройден")
+                          : Text(widget.tests[index].percent.toString())
                       : const Text("Тест не пройден"),
+                  enabled: widget.tests[index].percent == null ||
+                      widget.tests[index].percent! < 100,
                   onTap: () {
                     Navigator.push(
                             context,
@@ -46,7 +66,9 @@ class _TestsListState extends State<TestsList> {
                         .then((value) {
                       if (value != null) {
                         setState(() {
-                          widget.tests[index].percent = value;
+                          if (widget.tests[index].percent == null || value > widget.tests[index].percent) {
+                            widget.tests[index].percent = value;
+                          }
                         });
                       }
                     });

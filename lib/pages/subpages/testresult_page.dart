@@ -1,4 +1,5 @@
 import 'package:digital_wind_application/models/test.dart';
+import 'package:digital_wind_application/utils/test_utils.dart';
 import 'package:flutter/material.dart';
 
 class TestResult extends StatelessWidget {
@@ -21,13 +22,21 @@ class TestResult extends StatelessWidget {
 
     percent *= 100;
 
-    percent = percent / answers.length as int;
+    percent = percent ~/ answers.length;
+
+    int rewardMaxXP = calcReward(answers.length, test.difficulty, REWARD_XP);
+    int rewardMaxMoney =
+        calcReward(answers.length, test.difficulty, REWARD_MONEY);
 
     return Scaffold(
       appBar: AppBar(title: const Text("Результаты теста")),
       body: Center(
           child: Column(children: [
-        Text(percent.toString()),
+        Text("Тест был пройден на $percent процентов"),
+        Text(
+            "Заработаны очки: ${calcRemaindReward(rewardMaxXP, percent, test.percent)}"),
+        Text(
+            "Заработаны деньги: ${calcRemaindReward(rewardMaxMoney, percent, test.percent)}"),
         TextButton(
             onPressed: () {
               Navigator.pop(context, percent);
