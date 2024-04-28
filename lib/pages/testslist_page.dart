@@ -50,7 +50,7 @@ class _TestsListState extends State<TestsList> {
                     });
                   },
                 ),
-            separatorBuilder: (context, index) => const Spacer(),
+            separatorBuilder: (context, index) => const Divider(),
             itemCount: widget.tests.length),
       ),
       bottomNavigationBar: const NavPanel(index: 2),
