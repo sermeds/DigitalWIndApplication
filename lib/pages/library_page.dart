@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:digital_wind_application/components/navpanel.dart';
+import 'package:digital_wind_application/components/mainscaffold.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -17,9 +17,8 @@ class LibraryPage extends StatefulWidget{
 class _LibraryPageState extends State<LibraryPage>{
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Библиотека")),
-      bottomNavigationBar: const NavPanel(index: 4)
+    return const MainScaffold(
+      index: 4,
     );
   }
 

@@ -21,6 +21,7 @@ class NavPanel extends StatelessWidget{
     ],
     
     currentIndex: index,
+    unselectedItemColor: Colors.black,
     selectedItemColor: Colors.amber[800],
     onTap: (index){
       if(index != this.index)
