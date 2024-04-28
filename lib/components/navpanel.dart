@@ -25,7 +25,7 @@ class NavPanel extends StatelessWidget{
     onTap: (index){
       if(index != this.index)
       {
-        context.router.popAndPush(_routes[index]);
+        context.router.replace(_routes[index]);
       }
     },
     );
