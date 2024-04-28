@@ -1,7 +1,7 @@
 import 'package:digital_wind_application/API/tests.dart';
 import 'package:digital_wind_application/components/quiz_question.dart';
 import 'package:digital_wind_application/models/test.dart';
-import 'package:digital_wind_application/pages/testresult_page.dart';
+import 'package:digital_wind_application/pages/subpages/testresult_page.dart';
 import 'package:flutter/material.dart';
 
 class TestingPage extends StatefulWidget {

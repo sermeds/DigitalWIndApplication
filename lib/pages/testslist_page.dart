@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/models/question.dart';
 import 'package:digital_wind_application/models/test.dart';
-import 'package:digital_wind_application/pages/test_page.dart';
+import 'package:digital_wind_application/pages/subpages/test_page.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage(name: "Testing")
