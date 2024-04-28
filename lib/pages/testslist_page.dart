@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 
 @RoutePage(name: "Testing")
 class TestsList extends StatefulWidget {
-  TestsList({super.key});
 
   final List<Test> tests = [
     Test(title: "Hello World", difficulty: Difficulty.medium, questions: [

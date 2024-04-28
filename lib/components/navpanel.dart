@@ -8,8 +8,7 @@ class NavPanel extends StatelessWidget{
 
   final int index;
 
-  // TODO: Поставить потом нормальные ссылки
-  final List<PageRouteInfo> _routes = const [RegistrationRoute(), RegistrationRoute(), Testing(), RegistrationRoute(), RegistrationRoute()];
+  final List<PageRouteInfo> _routes = const [MainRoute(), ProfileRoute(), Testing(), ShopRoute(), LibraryRoute()];
 
   @override
   Widget build(BuildContext context) {
