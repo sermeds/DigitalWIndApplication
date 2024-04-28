@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class QuizQuestion extends StatefulWidget {
-  const QuizQuestion({super.key, required this.question, required this.answers, this.controller});
+  const QuizQuestion({super.key, required this.question, required this.answers, this.controller, this.defaultValue});
 
   final String question;
 
   final List<String> answers;
 
   final ValueNotifier? controller;
+
+  final int? defaultValue;
 
   @override
   State<StatefulWidget> createState() {
@@ -16,7 +18,7 @@ class QuizQuestion extends StatefulWidget {
 }
 
 class QuizQuestionState extends State<QuizQuestion> {
-  late String? _selected = widget.answers[0];
+  late String? _selected = widget.defaultValue != null ? widget.answers[widget.defaultValue!] : null;
 
   @override
   Widget build(BuildContext context) {
