@@ -30,8 +30,13 @@ class TestResult extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Результаты теста")),
-      body: Center(
-          child: Column(children: [
+      body: WillPopScope(
+          onWillPop: () async{
+              Navigator.pop(context, percent);
+              return false;
+          },
+          child: Center(
+              child: Column(children: [
         Text("Тест был пройден на $percent процентов"),
         Text(
             "Заработаны очки: ${calcRemaindReward(rewardMaxXP, percent, test.percent)}"),
@@ -42,7 +47,7 @@ class TestResult extends StatelessWidget {
               Navigator.pop(context, percent);
             },
             child: const Text("ОК"))
-      ])),
+      ]))),
     );
   }
 }
