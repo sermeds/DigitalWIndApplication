@@ -11,4 +11,6 @@ class Test {
   int? percent;
 
   Difficulty difficulty;
+
+  int time = 0;
 }
