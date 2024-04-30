@@ -60,7 +60,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(
                 width: 80.w,
                 child: Text(
-                  "DigitalWind Application",
+                  "Finigram",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -77,12 +77,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 3.h),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(7.5.w)),
-                        color: Theme.of(context).dialogBackgroundColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       child: Column(
                         children: [
                           TextFormField(
                             decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary),
+                                ),
                                 labelText: "Логин",
                                 labelStyle:
                                     Theme.of(context).textTheme.labelMedium),
@@ -104,6 +110,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary),
+                                ),
                                 labelText: "Пароль",
                                 labelStyle:
                                     Theme.of(context).textTheme.labelMedium),
@@ -122,6 +134,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary),
+                                ),
                                 labelText: "Потверждение пароля",
                                 labelStyle:
                                     Theme.of(context).textTheme.labelMedium),
@@ -139,6 +157,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           PhoneFormField(
                             autovalidateMode: AutovalidateMode.disabled,
                             decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary),
+                                ),
                                 labelText: "Телефон",
                                 labelStyle:
                                     Theme.of(context).textTheme.labelMedium),
@@ -172,7 +196,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       style: ButtonStyle(
                         alignment: Alignment.center,
                         backgroundColor: MaterialStateColor.resolveWith(
-                            (states) => Theme.of(context).highlightColor),
+                            (states) =>
+                                Theme.of(context).colorScheme.onPrimary),
                       ),
                       child: Text(
                         "Продолжить регистрацию",
@@ -192,7 +217,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   style: ButtonStyle(
                     alignment: Alignment.center,
                     backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => Theme.of(context).highlightColor),
+                        (states) => Theme.of(context).colorScheme.onPrimary),
                   ),
                   child: Text(
                     "Отменить регистрацию",

@@ -44,7 +44,7 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
               SizedBox(
                 width: 80.w,
                 child: Text(
-                  "DigitalWind Application",
+                  "Finigram",
                   style: Theme.of(context).textTheme.displaySmall,
                   textAlign: TextAlign.center,
                 ),
@@ -57,9 +57,8 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                 height: 50.h,
                 padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 1.h),
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: Theme.of(context).dialogBackgroundColor,
-                ),
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    color: Theme.of(context).colorScheme.secondary),
                 child: Column(
                   children: [
                     Text(
@@ -90,7 +89,7 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                   style: ButtonStyle(
                     alignment: Alignment.center,
                     backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => Theme.of(context).highlightColor),
+                        (states) => Theme.of(context).colorScheme.onPrimary),
                   ),
                   child: Text(
                     "Принять условия",
@@ -105,7 +104,7 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                 style: ButtonStyle(
                   alignment: Alignment.center,
                   backgroundColor: MaterialStateColor.resolveWith(
-                      (states) => Theme.of(context).highlightColor),
+                      (states) => Theme.of(context).colorScheme.onPrimary),
                 ),
                 child: Text(
                   "Не принимать условия",

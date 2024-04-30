@@ -2,9 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:path/path.dart' as path;
-import 'package:sqflite/sqflite.dart';
-import 'package:http/http.dart' as http;
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
@@ -18,14 +15,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<String> get _dbPath async {
-    // Get a location using getDatabasesPath
-    var databasesPath = await getDatabasesPath();
-    String dbPath = path.join(databasesPath, 'demo2.db');
-
-    return dbPath;
   }
 
   void login(BuildContext context) {
@@ -69,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: 80.h,
                 child: Text(
-                  "DigitalWind Application",
+                  "Finigram",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -86,12 +75,18 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(7.5.w)),
-                        color: Theme.of(context).dialogBackgroundColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       child: Column(
                         children: [
                           TextFormField(
                             decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                              ),
                               labelText: "Логин",
                               labelStyle:
                                   Theme.of(context).textTheme.labelMedium,
@@ -113,6 +108,12 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                              ),
                               labelText: "Пароль",
                               labelStyle:
                                   Theme.of(context).textTheme.labelMedium,
@@ -197,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(7.5.w),
                     ),
-                    color: Theme.of(context).dialogBackgroundColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   child: Text(
                     "Совет дня: ${getAdvice()}",

@@ -16,6 +16,8 @@ dependencies:
   http: ^1.2.1
   phone_form_field: ^9.2.3
   flutter_sizer: ^1.0.5
+  intl: ^0.18.1
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +31,10 @@ flutter:
 
   assets:
     - lib/resources/images/appIcon.png
+    - lib/resources/images/avatar/
+    - lib/resources/images/avatar/hat/
+    - lib/resources/images/avatar/hair/
+    - lib/resources/images/avatar/face/
+    - lib/resources/images/avatar/eyes/
+    - lib/resources/images/avatar/mouth/
+    - lib/resources/images/avatar/clothes/

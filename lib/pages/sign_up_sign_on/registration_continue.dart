@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:digital_wind_application/components/custom_date_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
 @RoutePage()
@@ -54,7 +52,7 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
               SizedBox(
                 width: 80.h,
                 child: Text(
-                  "DigitalWind Application",
+                  "Finigra",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -71,12 +69,18 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                       padding: EdgeInsets.fromLTRB(5.w, 1.h, 5.w, 0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(7.5.w)),
-                        color: Theme.of(context).dialogBackgroundColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       child: Column(
                         children: [
                           TextFormField(
                             decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                              ),
                               labelText: "Имя",
                               labelStyle:
                                   Theme.of(context).textTheme.labelMedium,
@@ -97,6 +101,12 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                              ),
                               labelText: "Фамилия",
                               labelStyle:
                                   Theme.of(context).textTheme.labelMedium,
@@ -139,6 +149,9 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                                     title: const Text('Муж.'),
                                     leading: Radio<int>(
                                       value: 0,
+                                      activeColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                       groupValue: currentGender,
                                       onChanged: (value) {
                                         setState(
@@ -157,6 +170,9 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                                     title: const Text('Жен.'),
                                     leading: Radio<int>(
                                       value: 1,
+                                      activeColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                       groupValue: currentGender,
                                       onChanged: (value) {
                                         setState(
@@ -186,7 +202,8 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                       style: ButtonStyle(
                           alignment: Alignment.center,
                           backgroundColor: MaterialStateColor.resolveWith(
-                              (states) => Theme.of(context).highlightColor)),
+                              (states) =>
+                                  Theme.of(context).colorScheme.onPrimary)),
                       child: Text(
                         "Завершить регистрацию",
                         style: Theme.of(context).textTheme.labelLarge,
@@ -204,7 +221,7 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                   style: ButtonStyle(
                     alignment: Alignment.center,
                     backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => Theme.of(context).highlightColor),
+                        (states) => Theme.of(context).colorScheme.onPrimary),
                   ),
                   child: Text(
                     "Отменить регистрацию",

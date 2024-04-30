@@ -4,30 +4,34 @@ import 'package:flutter/material.dart';
 class AppColorSheme {
   AppColorSheme._();
 
-  static ColorScheme lightColorSheme = ColorScheme(
+  static ColorScheme lightColorSheme = const ColorScheme(
     brightness: Brightness.light,
-    background: CustomColor.primaryLight,
-    onBackground: const ColorScheme.light().onBackground,
-    primary: CustomColor.highlightLight,
-    onPrimary: const ColorScheme.light().onPrimary,
+    primary: CustomColor.primaryLight,
     secondary: CustomColor.secondaryLight,
-    onSecondary: const ColorScheme.light().onSecondary,
-    surface: const ColorScheme.light().surface,
-    onSurface: const ColorScheme.light().onSurface,
+    onPrimary: CustomColor.highlightLight,
+    tertiary: CustomColor.textLight,
+    onTertiary: CustomColor.subTextLight,
+    onSecondary: CustomColor.dopLight,
     error: CustomColor.errorLight,
-    onError: const ColorScheme.light().onError,
+    surface: CustomColor.primaryLight,
+    onSurface: Colors.black,
+    background: CustomColor.primaryLight,
+    onBackground: Colors.black,
+    onError: CustomColor.errorLight,
   );
-  static ColorScheme darkColorScheme = ColorScheme(
+  static ColorScheme darkColorScheme = const ColorScheme(
     brightness: Brightness.dark,
-    background: CustomColor.primaryDark,
-    onBackground: const ColorScheme.dark().onBackground,
-    primary: CustomColor.highlightDark,
-    onPrimary: const ColorScheme.dark().onPrimary,
+    primary: CustomColor.primaryDark,
     secondary: CustomColor.secondaryDark,
-    onSecondary: const ColorScheme.dark().onSecondary,
-    surface: const ColorScheme.dark().surface,
-    onSurface: const ColorScheme.dark().onSurface,
+    onPrimary: CustomColor.highlightDark,
+    tertiary: CustomColor.textDark,
+    onTertiary: CustomColor.subTextDark,
+    onSecondary: CustomColor.dopDark,
     error: CustomColor.errorDark,
-    onError: const ColorScheme.dark().onError,
+    surface: CustomColor.primaryDark,
+    onSurface: Colors.white,
+    background: CustomColor.primaryDark,
+    onBackground: Colors.white,
+    onError: CustomColor.errorDark,
   );
 }
