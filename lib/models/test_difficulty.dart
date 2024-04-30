@@ -13,5 +13,9 @@ enum Difficulty{
         return "тяжело";
     }
   }
+
+  factory Difficulty.fromJson(int index) => Difficulty.values[index];
+
+  int toJson() => index;
 }
 
