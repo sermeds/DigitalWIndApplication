@@ -3,9 +3,11 @@ import 'package:digital_wind_application/models/test_difficulty.dart';
 
 class Test {
   Test(
-      {required this.title, required this.difficulty, required this.questions});
+      {required this.title, required this.difficulty, required this.questions, this.description});
 
   String title;
+
+  String? description;
 
   List<Question> questions;
 
@@ -19,12 +21,14 @@ class Test {
     Test test = Test(title: json['title'], difficulty: Difficulty.fromJson(json['difficulty']), questions: (json['questions'] as List).map((item) => Question.fromJson(item)).toList());
     test.percent = json['percent'];
     test.time = json['time'];
+    test.description = json['description'];
     return test;
   }
 
   Map<String, dynamic> toJson() {
     return {
       "title": title,
+      "description": description,
       "questions": questions,
       "percent": percent,
       "difficulty": difficulty,

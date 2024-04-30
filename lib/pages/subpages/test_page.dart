@@ -1,5 +1,6 @@
 import 'package:digital_wind_application/API/tests.dart';
 import 'package:digital_wind_application/components/quiz_question.dart';
+import 'package:digital_wind_application/main.dart';
 import 'package:digital_wind_application/models/test.dart';
 import 'package:digital_wind_application/pages/subpages/testresult_page.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _TestingPageState extends State<TestingPage> {
                       var answers = widget.subs
                           .map((e) => e.value != null ? e.value as String : "")
                           .toList();
-                      sendAnswers(0, answers);
+                      sendAnswers(0, answers, AppDataProvider.of(context)!.appData.token ?? "");
                       Navigator.push(
                           context,
                           MaterialPageRoute(

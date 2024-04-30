@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/components/mainscaffold.dart';
 import 'package:digital_wind_application/main.dart';
-import 'package:digital_wind_application/pages/subpages/test_page.dart';
+import 'package:digital_wind_application/pages/subpages/test_info_page.dart';
 import 'package:digital_wind_application/utils/test_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +79,7 @@ class _TestsListState extends State<TestsList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TestingPage(
+                            builder: (context) => TestInfoPage(
                                 test: AppDataProvider.of(context)!
                                     .appData
                                     .tests[index]))).then((value) {
