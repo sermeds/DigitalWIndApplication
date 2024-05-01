@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:digital_wind_application/API/tests.dart';
 import 'package:digital_wind_application/components/mainscaffold.dart';
 import 'package:digital_wind_application/main.dart';
 import 'package:digital_wind_application/pages/subpages/test_info_page.dart';
@@ -17,7 +18,10 @@ class TestsList extends StatefulWidget {
 
 class _TestsListState extends State<TestsList> {
   _TestsListState() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+
+    getTests(AppDataProvider.of(context)!.appData.tokens!.accessToken).then((value){
+      AppDataProvider.of(context)!.appData.tests = value;
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         for (var elem in AppDataProvider.of(context)!.appData.tests) {
           if (elem.time > 0) {
@@ -25,16 +29,18 @@ class _TestsListState extends State<TestsList> {
           }
         }
       });
-      AppDataProvider.of(context)!.appData.saveTests();
     });
+    });    
   }
 
-  late final Timer _timer;
+  late final Timer? _timer;
 
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
+    if(_timer != null) {
+      _timer.cancel();
+    }
   }
 
   @override
@@ -104,7 +110,6 @@ class _TestsListState extends State<TestsList> {
                               .appData
                               .tests[index]
                               .time = TEST_TIMER;
-                          AppDataProvider.of(context)!.appData.saveTests();
                         });
                       }
                     });

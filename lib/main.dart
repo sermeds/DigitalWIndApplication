@@ -25,7 +25,6 @@ class AppDataProvider extends InheritedWidget {
 class AppData {
   AppData(
       {required this.settingsStorage,
-      required this.testsStorage,
       required this.avatarStorage,
       required this.playerStorage,
       required this.tokenStorage}) {
@@ -33,14 +32,6 @@ class AppData {
       if (value != null) {
         tokens = TokenTuple.fromJson(value);
       } else {}
-    });
-
-    testsStorage.readValue().then((value) {
-      if (value != null) {
-        for (var i in value) {
-          tests.add(Test.fromJson(i));
-        }
-      }
     });
 
     settingsStorage.readValue().then((value) {
@@ -68,8 +59,6 @@ class AppData {
     });
   }
 
-  final SingleValueFileStorage<List> testsStorage;
-
   final SingleValueFileStorage<Settings> settingsStorage;
 
   final SingleValueFileStorage<AvatarSet> avatarStorage;
@@ -85,10 +74,6 @@ class AppData {
   late AvatarSet avatar;
 
   Player? player;
-
-  Future saveTests() async {
-    await testsStorage.writeValue(tests);
-  }
 
   Future saveSettings() async {
     await settingsStorage.writeValue(settings);
@@ -106,14 +91,13 @@ class AppData {
     await tokenStorage.writeValue(tokens!);
   }
 
-  final List<Test> tests = [];
+  List<Test> tests = [];
 }
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(AppDataProvider(
       appData: AppData(
-          testsStorage: SingleValueFileStorage("tests"),
           settingsStorage: SingleValueFileStorage("settings"),
           avatarStorage: SingleValueFileStorage('avatar'),
           playerStorage: SingleValueFileStorage('player'),
