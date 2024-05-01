@@ -38,7 +38,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String getAdvice() {
-    return "Не кусай сиську, которая тебя кормит!";
+    
+    return "Не плюй в колодец, пригодится водицы напиться!";
   }
 
   final _formKey = GlobalKey<FormState>();
