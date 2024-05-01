@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/home_page.dart';
+import 'package:digital_wind_application/pages/library_page.dart';
+import 'package:digital_wind_application/pages/main_page.dart';
+import 'package:digital_wind_application/pages/profile_page.dart';
+import 'package:digital_wind_application/pages/shop_page.dart';
 import 'package:digital_wind_application/pages/sign_up_sign_on/login_page.dart';
 import 'package:digital_wind_application/pages/sign_up_sign_on/registration_agreement_page.dart';
 import 'package:digital_wind_application/pages/sign_up_sign_on/registration_continue.dart';
 import 'package:digital_wind_application/pages/sign_up_sign_on/registration_page.dart';
+import 'package:digital_wind_application/pages/subpages/avatar_editor.dart';
+import 'package:digital_wind_application/pages/testslist_page.dart';
 import 'package:digital_wind_application/resources/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
@@ -21,8 +27,12 @@ class AppRouter extends _$AppRouter {
           children: [
             AutoRoute(
               path: '',
+              page: MainRoute.page,
+            ),
+            AutoRoute(
+              path: '',
               page: LoginRoute.page,
-              initial: true,
+              initial: true
             ),
             AutoRoute(
               path: '',
@@ -40,6 +50,24 @@ class AppRouter extends _$AppRouter {
               path: '',
               page: HomeRoute.page,
             ),
+            AutoRoute(
+              path: '',
+              page: ProfileRoute.page,
+            ),
+            AutoRoute(
+              path: '',
+              page: Testing.page,
+            ),
+            AutoRoute(
+              path: '',
+              page: ShopRoute.page,
+            ),
+            AutoRoute(
+              path: '',
+              page: LibraryRoute.page,
+            ),
+            
+
           ],
         ),
       ];

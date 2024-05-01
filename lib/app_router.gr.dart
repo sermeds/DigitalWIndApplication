@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AvatarEditorRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AvatarEditorPage(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -27,22 +33,50 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeRootPage(),
       );
     },
+    LibraryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LibraryPage(),
+      );
+    },
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const LoginPage(),
       );
     },
-    RegistrationAgreementRoute.name: (routeData) {
+    MainRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const RegistrationAgreementPage(),
+        child: const MainPage(),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ProfilePage(),
+      );
+    },
+    RegistrationAgreementRoute.name: (routeData) {
+      final args = routeData.argsAs<RegistrationAgreementRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: RegistrationAgreementPage(
+          key: args.key,
+          login: args.login,
+          password: args.password,
+        ),
       );
     },
     RegistrationContinueRoute.name: (routeData) {
+      final args = routeData.argsAs<RegistrationContinueRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const RegistrationContinuePage(),
+        child: RegistrationContinuePage(
+          key: args.key,
+          login: args.login,
+          password: args.password,
+        ),
       );
     },
     RegistrationRoute.name: (routeData) {
@@ -51,7 +85,33 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const RegistrationPage(),
       );
     },
+    ShopRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ShopPage(),
+      );
+    },
+    Testing.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TestsList(),
+      );
+    },
   };
+}
+
+/// generated route for
+/// [AvatarEditorPage]
+class AvatarEditorRoute extends PageRouteInfo<void> {
+  const AvatarEditorRoute({List<PageRouteInfo>? children})
+      : super(
+          AvatarEditorRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AvatarEditorRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -83,6 +143,20 @@ class HomeRootRouter extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LibraryPage]
+class LibraryRoute extends PageRouteInfo<void> {
+  const LibraryRoute({List<PageRouteInfo>? children})
+      : super(
+          LibraryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LibraryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
@@ -97,31 +171,119 @@ class LoginRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [RegistrationAgreementPage]
-class RegistrationAgreementRoute extends PageRouteInfo<void> {
-  const RegistrationAgreementRoute({List<PageRouteInfo>? children})
+/// [MainPage]
+class MainRoute extends PageRouteInfo<void> {
+  const MainRoute({List<PageRouteInfo>? children})
       : super(
-          RegistrationAgreementRoute.name,
+          MainRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'RegistrationAgreementRoute';
+  static const String name = 'MainRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
-/// [RegistrationContinuePage]
-class RegistrationContinueRoute extends PageRouteInfo<void> {
-  const RegistrationContinueRoute({List<PageRouteInfo>? children})
+/// [ProfilePage]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute({List<PageRouteInfo>? children})
       : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [RegistrationAgreementPage]
+class RegistrationAgreementRoute
+    extends PageRouteInfo<RegistrationAgreementRouteArgs> {
+  RegistrationAgreementRoute({
+    Key? key,
+    required String login,
+    required String password,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RegistrationAgreementRoute.name,
+          args: RegistrationAgreementRouteArgs(
+            key: key,
+            login: login,
+            password: password,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegistrationAgreementRoute';
+
+  static const PageInfo<RegistrationAgreementRouteArgs> page =
+      PageInfo<RegistrationAgreementRouteArgs>(name);
+}
+
+class RegistrationAgreementRouteArgs {
+  const RegistrationAgreementRouteArgs({
+    this.key,
+    required this.login,
+    required this.password,
+  });
+
+  final Key? key;
+
+  final String login;
+
+  final String password;
+
+  @override
+  String toString() {
+    return 'RegistrationAgreementRouteArgs{key: $key, login: $login, password: $password}';
+  }
+}
+
+/// generated route for
+/// [RegistrationContinuePage]
+class RegistrationContinueRoute
+    extends PageRouteInfo<RegistrationContinueRouteArgs> {
+  RegistrationContinueRoute({
+    Key? key,
+    required String login,
+    required String password,
+    List<PageRouteInfo>? children,
+  }) : super(
           RegistrationContinueRoute.name,
+          args: RegistrationContinueRouteArgs(
+            key: key,
+            login: login,
+            password: password,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'RegistrationContinueRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<RegistrationContinueRouteArgs> page =
+      PageInfo<RegistrationContinueRouteArgs>(name);
+}
+
+class RegistrationContinueRouteArgs {
+  const RegistrationContinueRouteArgs({
+    this.key,
+    required this.login,
+    required this.password,
+  });
+
+  final Key? key;
+
+  final String login;
+
+  final String password;
+
+  @override
+  String toString() {
+    return 'RegistrationContinueRouteArgs{key: $key, login: $login, password: $password}';
+  }
 }
 
 /// generated route for
@@ -134,6 +296,34 @@ class RegistrationRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'RegistrationRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ShopPage]
+class ShopRoute extends PageRouteInfo<void> {
+  const ShopRoute({List<PageRouteInfo>? children})
+      : super(
+          ShopRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ShopRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TestsList]
+class Testing extends PageRouteInfo<void> {
+  const Testing({List<PageRouteInfo>? children})
+      : super(
+          Testing.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'Testing';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
