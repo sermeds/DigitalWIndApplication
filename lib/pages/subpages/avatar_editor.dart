@@ -92,7 +92,7 @@ AvatarElement getByIndex(AvatarSet set, int index) {
 Future save(BuildContext context, AvatarSet set) {
   AppDataProvider.of(context)!.appData.avatar = set;
   AppDataProvider.of(context)!.appData.saveAvatar();
-  return createAvatar([], AppDataProvider.of(context)!.appData.token ?? "");
+  return createAvatar([], AppDataProvider.of(context)!.appData.tokens!.accessToken);
 }
 
 class _AvatarEditorPageState extends State<AvatarEditorPage> {

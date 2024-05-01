@@ -1,28 +1,28 @@
 import 'package:digital_wind_application/models/player_sex.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
-class Player {
+class RegisterInfo {
+  String login;
+  String password;
   String firstname;
   String? lastname;
-  int exp;
-  int balance;
   PlayerSex sex;
   PhoneNumber phone;
   DateTime birthday;
 
-  Player(
+  RegisterInfo(
       {required this.firstname,
       this.lastname,
-      required this.balance,
-      required this.exp,
       required this.sex,
       required this.phone,
-      required this.birthday});
+      required this.birthday,
+      required this.login,
+      required this.password});
 
-  factory Player.fromJson(Map<String, dynamic> json) => Player(
+  factory RegisterInfo.fromJson(Map<String, dynamic> json) => RegisterInfo(
       firstname: json['firstname'],
-      balance: json['balance'],
-      exp: json['exp'],
+      login: json['login'],
+      password: json['password'],
       lastname: json['lastname'],
       sex: PlayerSex.fromJson(json['sex']),
       phone: PhoneNumber.fromJson(json['phone']),
@@ -31,8 +31,8 @@ class Player {
   Map<String, dynamic> toJson() => {
         'firstname': firstname,
         'lastname': lastname,
-        'balance': balance,
-        'exp': exp,
+        'login': login,
+        'password': password,
         'sex': sex,
         'phone': phone,
         'birthday': birthday.toIso8601String()

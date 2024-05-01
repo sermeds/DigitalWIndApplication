@@ -2,14 +2,25 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/API/auth.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:digital_wind_application/components/custom_date_picker.dart';
+import 'package:digital_wind_application/main.dart';
+import 'package:digital_wind_application/models/dto/register_info.dart';
+import 'package:digital_wind_application/models/player.dart';
+import 'package:digital_wind_application/models/player_sex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 @RoutePage()
 class RegistrationContinuePage extends StatefulWidget {
-  const RegistrationContinuePage({super.key, required this.login, required this.password});
+  const RegistrationContinuePage(
+      {super.key,
+      required this.login,
+      required this.password,
+      required this.phone});
 
   final String login, password;
+
+  final PhoneNumber phone;
 
   @override
   State<StatefulWidget> createState() => _RegistrationContinuePageState();
@@ -21,9 +32,30 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
     super.initState();
   }
 
-  void registrationThreeStep(BuildContext context, String login, String password) {
-      register(login, password, nameController.text, dopNameController.text);
-      context.router.replaceAll([const HomeRoute()]);
+  void registrationThreeStep(
+      BuildContext context, String login, String password, PhoneNumber phone) {
+    register(RegisterInfo(
+            firstname: nameController.text,
+            sex: PlayerSex.values[currentGender],
+            phone: phone,
+            birthday: DateTime.parse(dateController.text),
+            login: login,
+            password: password))
+        .then((value) {
+      AppDataProvider.of(context)!.appData.tokens = value;
+      AppDataProvider.of(context)!.appData.saveTokens();
+    });
+    AppDataProvider.of(context)!.appData.player = Player(
+        firstname: nameController.text,
+        balance: 0,
+        exp: 0,
+        sex: PlayerSex.values[currentGender],
+        lastname: dopNameController.text,
+        phone: phone,
+        birthday: DateTime.parse(dateController.text));
+    AppDataProvider.of(context)!.appData.savePlayer().then((value) {
+      context.router.replaceAll([const MainRoute()]);
+    });
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -195,7 +227,8 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          registrationThreeStep(context, widget.login, widget.password);
+                          registrationThreeStep(context, widget.login,
+                              widget.password, widget.phone);
                         }
                       },
                       style: ButtonStyle(

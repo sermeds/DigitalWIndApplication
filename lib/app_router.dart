@@ -13,6 +13,7 @@ import 'package:digital_wind_application/pages/testslist_page.dart';
 import 'package:digital_wind_application/resources/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 part 'app_router.gr.dart';
 
@@ -25,14 +26,10 @@ class AppRouter extends _$AppRouter {
           page: HomeRootRouter.page,
           initial: true,
           children: [
+            AutoRoute(path: '', page: LoginRoute.page, initial: true),
             AutoRoute(
               path: '',
               page: MainRoute.page,
-            ),
-            AutoRoute(
-              path: '',
-              page: LoginRoute.page,
-              initial: true
             ),
             AutoRoute(
               path: '',
@@ -66,8 +63,6 @@ class AppRouter extends _$AppRouter {
               path: '',
               page: LibraryRoute.page,
             ),
-            
-
           ],
         ),
       ];

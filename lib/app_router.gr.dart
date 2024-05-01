@@ -65,6 +65,7 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           login: args.login,
           password: args.password,
+          phone: args.phone,
         ),
       );
     },
@@ -76,6 +77,7 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           login: args.login,
           password: args.password,
+          phone: args.phone,
         ),
       );
     },
@@ -206,6 +208,7 @@ class RegistrationAgreementRoute
     Key? key,
     required String login,
     required String password,
+    required PhoneNumber phone,
     List<PageRouteInfo>? children,
   }) : super(
           RegistrationAgreementRoute.name,
@@ -213,6 +216,7 @@ class RegistrationAgreementRoute
             key: key,
             login: login,
             password: password,
+            phone: phone,
           ),
           initialChildren: children,
         );
@@ -228,6 +232,7 @@ class RegistrationAgreementRouteArgs {
     this.key,
     required this.login,
     required this.password,
+    required this.phone,
   });
 
   final Key? key;
@@ -236,9 +241,11 @@ class RegistrationAgreementRouteArgs {
 
   final String password;
 
+  final PhoneNumber phone;
+
   @override
   String toString() {
-    return 'RegistrationAgreementRouteArgs{key: $key, login: $login, password: $password}';
+    return 'RegistrationAgreementRouteArgs{key: $key, login: $login, password: $password, phone: $phone}';
   }
 }
 
@@ -250,6 +257,7 @@ class RegistrationContinueRoute
     Key? key,
     required String login,
     required String password,
+    required PhoneNumber phone,
     List<PageRouteInfo>? children,
   }) : super(
           RegistrationContinueRoute.name,
@@ -257,6 +265,7 @@ class RegistrationContinueRoute
             key: key,
             login: login,
             password: password,
+            phone: phone,
           ),
           initialChildren: children,
         );
@@ -272,6 +281,7 @@ class RegistrationContinueRouteArgs {
     this.key,
     required this.login,
     required this.password,
+    required this.phone,
   });
 
   final Key? key;
@@ -280,9 +290,11 @@ class RegistrationContinueRouteArgs {
 
   final String password;
 
+  final PhoneNumber phone;
+
   @override
   String toString() {
-    return 'RegistrationContinueRouteArgs{key: $key, login: $login, password: $password}';
+    return 'RegistrationContinueRouteArgs{key: $key, login: $login, password: $password, phone: $phone}';
   }
 }
 

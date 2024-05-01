@@ -7,4 +7,6 @@ class TokenTuple{
   factory TokenTuple.fromJson(Map<String, String> json){
     return TokenTuple(accessToken: json["accessToken"]!, refreshToken: json["refreshToken"]!);
   }
+
+  Map<String, String> toJson() => {'accessToken': accessToken, 'refreshToken': refreshToken};
 }

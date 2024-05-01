@@ -1,12 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/API/file_storage.dart';
 import 'package:digital_wind_application/app_router.dart';
-import 'package:digital_wind_application/models/avatar_element.dart';
-import 'package:digital_wind_application/models/avatar_element_type.dart';
 import 'package:digital_wind_application/models/avatar_set.dart';
 import 'package:digital_wind_application/models/player.dart';
 import 'package:digital_wind_application/models/settings.dart';
 import 'package:digital_wind_application/models/test.dart';
+import 'package:digital_wind_application/models/tokens.dart';
 import 'package:flutter/material.dart';
 
 class AppDataProvider extends InheritedWidget {
@@ -29,7 +27,14 @@ class AppData {
       {required this.settingsStorage,
       required this.testsStorage,
       required this.avatarStorage,
-      required this.playerStorage}) {
+      required this.playerStorage,
+      required this.tokenStorage}) {
+    tokenStorage.readValue().then((value) {
+      if (value != null) {
+        tokens = TokenTuple.fromJson(value);
+      } else {}
+    });
+
     testsStorage.readValue().then((value) {
       if (value != null) {
         for (var i in value) {
@@ -47,21 +52,19 @@ class AppData {
       }
     });
 
-    avatarStorage.readValue().then((value){
-      if(value != null){
+    avatarStorage.readValue().then((value) {
+      if (value != null) {
         avatar = AvatarSet.fromJson(value);
-      } else{
+      } else {
         avatar = AvatarSet();
         avatarStorage.writeValue(avatar);
       }
     });
 
-    playerStorage.readValue().then((value){
-      if(value != null){
+    playerStorage.readValue().then((value) {
+      if (value != null) {
         player = Player.fromJson(value);
-      } else{
-        
-      }
+      } else {}
     });
   }
 
@@ -73,10 +76,11 @@ class AppData {
 
   final SingleValueFileStorage<Player> playerStorage;
 
+  final SingleValueFileStorage<TokenTuple> tokenStorage;
+
   late Settings settings;
 
-  String? token;
-  String? refreshToken;
+  TokenTuple? tokens;
 
   late AvatarSet avatar;
 
@@ -94,8 +98,12 @@ class AppData {
     await avatarStorage.writeValue(avatar);
   }
 
-  Future savePlayer() async{
+  Future savePlayer() async {
     await playerStorage.writeValue(player!);
+  }
+
+  Future saveTokens() async {
+    await tokenStorage.writeValue(tokens!);
   }
 
   final List<Test> tests = [];
@@ -108,6 +116,7 @@ void main() {
           testsStorage: SingleValueFileStorage("tests"),
           settingsStorage: SingleValueFileStorage("settings"),
           avatarStorage: SingleValueFileStorage('avatar'),
-          playerStorage: SingleValueFileStorage('player')),
+          playerStorage: SingleValueFileStorage('player'),
+          tokenStorage: SingleValueFileStorage('token')),
       child: const AppAutoRouter()));
 }

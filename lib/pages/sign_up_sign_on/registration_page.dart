@@ -23,16 +23,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void registrationOneStep(BuildContext context) {
-    phoneController.value.international;
-    loginController.text;
-    passwordController.text;
-    if (true) {
-      context.router.push(RegistrationAgreementRoute(login: loginController.text, password: passwordController.text));
-    }
+    context.router.push(RegistrationAgreementRoute(
+        login: loginController.text,
+        password: passwordController.text,
+        phone: phoneController.value));
   }
 
-  Future<bool> loginOriginality() {
-    return findByLogin(loginController.text);
+  Future<bool> loginOriginality() async {
+    return !await findByLogin(loginController.text);
   }
 
   bool orLogin = true;

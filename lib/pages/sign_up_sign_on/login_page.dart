@@ -19,10 +19,18 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (AppDataProvider.of(context)!.appData.tokens != null) {
+      context.router.replaceAll([const MainRoute()]);
+    }
+  }
+
   void login(BuildContext context) {
     authorize(loginController.text, passwordController.text).then((value) {
-      AppDataProvider.of(context)!.appData.token = value.accessToken;
-      AppDataProvider.of(context)!.appData.refreshToken = value.refreshToken;
+      AppDataProvider.of(context)!.appData.tokens = value;
+      AppDataProvider.of(context)!.appData.saveTokens();
       context.router.replace(const MainRoute());
     }, onError: (error) {
       loginErrorController.text = "Неправильный логин или пароль.";

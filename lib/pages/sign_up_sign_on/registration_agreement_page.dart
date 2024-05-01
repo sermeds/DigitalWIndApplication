@@ -2,12 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 @RoutePage()
 class RegistrationAgreementPage extends StatefulWidget {
-  const RegistrationAgreementPage({super.key, required this.login, required this.password});
+  const RegistrationAgreementPage({super.key, required this.login, required this.password, required this.phone});
 
   final String login; final String password;
+
+  final PhoneNumber phone;
 
   @override
   State<StatefulWidget> createState() => _RegistrationAgreementPageState();
@@ -19,8 +22,8 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
     super.initState();
   }
 
-  void registrationStepTwo(BuildContext context, String login, String password) {
-    context.router.push(RegistrationContinueRoute(login: login, password: password));
+  void registrationStepTwo(BuildContext context, String login, String password, PhoneNumber phone) {
+    context.router.push(RegistrationContinueRoute(login: login, password: password, phone: phone ));
   }
 
   String getAgreementText() {
@@ -86,7 +89,7 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                 padding: EdgeInsets.symmetric(vertical: 2.h),
                 child: ElevatedButton(
                   onPressed: () {
-                    registrationStepTwo(context, widget.login, widget.password);
+                    registrationStepTwo(context, widget.login, widget.password, widget.phone);
                   },
                   style: ButtonStyle(
                     alignment: Alignment.center,

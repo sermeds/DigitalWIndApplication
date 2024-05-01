@@ -1,4 +1,6 @@
+import 'package:digital_wind_application/main.dart';
 import 'package:digital_wind_application/models/avatar_set.dart';
+import 'package:digital_wind_application/models/player_sex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
@@ -7,10 +9,6 @@ class Avatar extends StatelessWidget{
   const Avatar({super.key, required this.elements});
 
   final AvatarSet elements;
-
-  final String bodyImage = true
-      ? "lib/resources/images/avatar/MaleBody.png"
-      : "lib/resources/images/avatar/FemaleBody.png";
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class Avatar extends StatelessWidget{
                     //Тело
                     padding: const EdgeInsets.only(top: 70),
                     child: Image.asset(
-                      bodyImage,
+                      "lib/resources/images/avatar/${AppDataProvider.of(context)!.appData.player!.sex == PlayerSex.MALE ? "Male" : "Female"}Body.png",
                       height: 30.h,
                       color: elements.face.color,
                     ),

@@ -44,7 +44,7 @@ class _TestingPageState extends State<TestingPage> {
                       var answers = widget.subs
                           .map((e) => e.value != null ? e.value as String : "")
                           .toList();
-                      sendAnswers(0, answers, AppDataProvider.of(context)!.appData.token ?? "");
+                      sendAnswers(0, answers, AppDataProvider.of(context)!.appData.tokens!.accessToken);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
