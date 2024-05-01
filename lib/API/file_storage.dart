@@ -16,12 +16,23 @@ class SingleValueFileStorage<T> {
     return directory.path;
   }
 
-  Future<T> readValue() async {
+  Future readValue() async {
       final file = await _file;
+
+      if(!await file.exists()){
+        return null;
+      }
 
       String json = await file.readAsString();
 
-      return jsonDecode(json) as T;
+      try{
+        return jsonDecode(json);
+      }
+      catch(e)
+      {
+        return null;
+      }
+      
   }
 
   Future writeValue(T value) async {

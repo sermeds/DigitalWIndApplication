@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digital_wind_application/API/auth.dart';
 import 'package:digital_wind_application/app_router.dart';
+import 'package:digital_wind_application/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
@@ -18,16 +20,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login(BuildContext context) {
-    if (false) {
-      //Сюда результат
-      //http.get()
-      // Запрос БД (loginController.text; и passwordController.text;)
-      context.router.popUntil((route) => false);
-      context.router.push(const HomeRoute());
-      loginErrorController.text = "";
-    } else {
+    authorize(loginController.text, passwordController.text).then((value) {
+      AppDataProvider.of(context)!.appData.token = value.accessToken;
+      AppDataProvider.of(context)!.appData.refreshToken = value.refreshToken;
+      context.router.replace(const MainRoute());
+    }, onError: (error) {
       loginErrorController.text = "Неправильный логин или пароль.";
-    }
+    });
   }
 
   String getAdvice() {

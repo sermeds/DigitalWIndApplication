@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digital_wind_application/API/auth.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:digital_wind_application/pages/sign_up_sign_on/login_page.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +31,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
   }
 
-  bool loginOriginality() {
-    if (loginController.text.toUpperCase() != "Kain".toUpperCase()) return true;
-    return false;
+  Future<bool> loginOriginality() {
+    return findByLogin(loginController.text);
   }
+
+  bool orLogin = true;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController loginController = TextEditingController();
@@ -102,7 +104,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               } else if (value.length < 4 ||
                                   regex.hasMatch(value)) {
                                 return 'Логин некорректен!';
-                              } else if (!loginOriginality()) {
+                              } else if (!orLogin) {
                                 return 'Данный логин уже используется!';
                               }
                               return null;
@@ -189,9 +191,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          registrationOneStep(context);
-                        }
+                        loginOriginality().then((value) {
+                          orLogin = value;
+                          if (_formKey.currentState!.validate()) {
+                            registrationOneStep(context);
+                          }
+                        });
                       },
                       style: ButtonStyle(
                         alignment: Alignment.center,

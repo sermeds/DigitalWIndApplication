@@ -30,6 +30,7 @@ class TestResult extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Результаты теста")),
+      // ignore: deprecated_member_use
       body: WillPopScope(
           onWillPop: () async{
               Navigator.pop(context, percent);
