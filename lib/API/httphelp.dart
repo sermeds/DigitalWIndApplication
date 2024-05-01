@@ -1,3 +1,4 @@
+const host = "";
 Uri buildUri(String path){
-  return Uri(scheme: "http", host: " ", path: path);
+  return Uri.parse('http://$host$path');
 }
