@@ -22,7 +22,7 @@ Future<TokenTuple> register(
 
 Future<TokenTuple> refresh(String refreshToken) {
   return http
-      .post(buildUri("/api/refresh"), body: refreshToken)
+      .post(buildUri("/api/refresh"), body: jsonEncode({"refreshToken": refreshToken}))
       .then((res) => TokenTuple.fromJson(jsonDecode(res.body)));
 }
 

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digital_wind_application/API/auth.dart';
 import 'package:digital_wind_application/app_router.dart';
 import 'package:digital_wind_application/components/custom_date_picker.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,9 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 
 @RoutePage()
 class RegistrationContinuePage extends StatefulWidget {
-  const RegistrationContinuePage({super.key});
+  const RegistrationContinuePage({super.key, required this.login, required this.password});
+
+  final String login, password;
 
   @override
   State<StatefulWidget> createState() => _RegistrationContinuePageState();
@@ -18,13 +21,9 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
     super.initState();
   }
 
-  void registrationThreeStep(BuildContext context) {
-    // ignore: dead_code
-    if (false) {
-      //var sex = currentGender == 0 ? "Male" : "Female";
-      // Запрос БД (loginController.text; и passwordController.text;)
+  void registrationThreeStep(BuildContext context, String login, String password) {
+      register(login, password, nameController.text, dopNameController.text);
       context.router.replaceAll([const HomeRoute()]);
-    }
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -196,7 +195,7 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          registrationThreeStep(context);
+                          registrationThreeStep(context, widget.login, widget.password);
                         }
                       },
                       style: ButtonStyle(

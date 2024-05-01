@@ -1,5 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digital_wind_application/API/avatar.dart';
 import 'package:digital_wind_application/app_router.dart';
+import 'package:digital_wind_application/components/avatar.dart';
+import 'package:digital_wind_application/main.dart';
+import 'package:digital_wind_application/models/avatar_element.dart';
+import 'package:digital_wind_application/models/avatar_element_type.dart';
+import 'package:digital_wind_application/models/avatar_set.dart';
 import 'package:digital_wind_application/resources/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -19,81 +25,91 @@ List<AvatarGroupElement> avatarGroups = List.empty(growable: true);
 
 int currentElement = 0;
 
-void getAvatarElements() {
+void getAvatarElements(BuildContext context) {
+  avatarGroups = List.empty(growable: true);
+  currentElement = 0;
+
   var names = ['Шляпа', 'Волосы', 'Лицо', 'Глаза', 'Рот', 'Одежда'];
   var colors = [
-    Colors.red,
-    Colors.amber,
-    const Color.fromARGB(255, 255, 214, 208),
-    Colors.white,
-    Colors.white,
-    Colors.white
+    AppDataProvider.of(context)!.appData.avatar.hat.color,
+    AppDataProvider.of(context)!.appData.avatar.hair.color,
+    AppDataProvider.of(context)!.appData.avatar.face.color,
+    AppDataProvider.of(context)!.appData.avatar.eyes.color,
+    AppDataProvider.of(context)!.appData.avatar.mouth.color,
+    AppDataProvider.of(context)!.appData.avatar.clothes.color,
   ];
   var ids = [0, 0, 0, 0, 0, 0];
   var avatarElements = [
-    [
-      AvatarElement._(
-          0, Image.asset("lib/resources/images/avatar/hat/Hat0.png")),
-      AvatarElement._(
-          1, Image.asset("lib/resources/images/avatar/hat/Hat1.png")),
-      AvatarElement._(
-          2, Image.asset("lib/resources/images/avatar/hat/Hat2.png")),
-    ],
-    [
-      AvatarElement._(
-          0, Image.asset("lib/resources/images/avatar/hair/Hair0.png")),
-      AvatarElement._(
-          1, Image.asset("lib/resources/images/avatar/hair/Hair1.png")),
-    ],
-    [
-      AvatarElement._(
-          0, Image.asset("lib/resources/images/avatar/face/Face0.png")),
-      AvatarElement._(
-          1, Image.asset("lib/resources/images/avatar/face/Face1.png")),
-      AvatarElement._(
-          2, Image.asset("lib/resources/images/avatar/face/Face2.png")),
-    ],
-    [
-      AvatarElement._(
-          0, Image.asset("lib/resources/images/avatar/eyes/Eyes0.png")),
-      AvatarElement._(
-          1, Image.asset("lib/resources/images/avatar/eyes/Eyes1.png")),
-    ],
-    [
-      AvatarElement._(
-          0, Image.asset("lib/resources/images/avatar/mouth/Mouth0.png")),
-      AvatarElement._(
-          1, Image.asset("lib/resources/images/avatar/mouth/Mouth1.png")),
-    ],
-    [
-      AvatarElement._(
-          0, Image.asset("lib/resources/images/avatar/clothes/Clothes0.png")),
-      AvatarElement._(
-          1, Image.asset("lib/resources/images/avatar/clothes/Clothes1.png")),
-    ],
+    AvatarElement(type: AvatarElementType.HAT, color: colors[0], number: 0),
+    AvatarElement(type: AvatarElementType.HAT, color: colors[0], number: 1),
+    AvatarElement(type: AvatarElementType.HAT, color: colors[0], number: 2),
+    AvatarElement(type: AvatarElementType.HAIR, color: colors[1], number: 0),
+    AvatarElement(type: AvatarElementType.HAIR, color: colors[1], number: 1),
+    AvatarElement(type: AvatarElementType.FACE, color: colors[2], number: 0),
+    AvatarElement(type: AvatarElementType.FACE, color: colors[2], number: 1),
+    AvatarElement(type: AvatarElementType.FACE, color: colors[2], number: 2),
+    AvatarElement(type: AvatarElementType.EYES, color: colors[3], number: 0),
+    AvatarElement(type: AvatarElementType.EYES, color: colors[3], number: 1),
+    AvatarElement(type: AvatarElementType.MOUTH, color: colors[4], number: 0),
+    AvatarElement(type: AvatarElementType.MOUTH, color: colors[4], number: 1),
+    AvatarElement(type: AvatarElementType.CLOTHES, color: colors[5], number: 0),
+    AvatarElement(type: AvatarElementType.CLOTHES, color: colors[5], number: 1),
   ];
 
   for (int i = 0; i < 6; i++) {
-    avatarGroups.add(
-        AvatarGroupElement._(names[i], colors[i], ids[i], avatarElements[i]));
+    avatarGroups.add(AvatarGroupElement._(
+        names[i],
+        colors[i],
+        ids[i],
+        avatarElements
+            .where((element) => element.type == AvatarElementType.values[i])
+            .toList()));
   }
   avatarGroups[0].isSelect = true;
 }
 
 void openElement(AvatarGroupElement element) {}
 
-void save() {}
+AvatarElement getByIndex(AvatarSet set, int index) {
+  switch (index) {
+    case 0:
+      return set.hat;
+    case 1:
+      return set.hair;
+    case 2:
+      return set.face;
+    case 3:
+      return set.eyes;
+    case 4:
+      return set.mouth;
+    case 5:
+      return set.clothes;
+    default:
+      throw Exception("Invalid index");
+  }
+}
+
+Future save(BuildContext context, AvatarSet set) {
+  AppDataProvider.of(context)!.appData.avatar = set;
+  AppDataProvider.of(context)!.appData.saveAvatar();
+  return createAvatar([], AppDataProvider.of(context)!.appData.token ?? "");
+}
 
 class _AvatarEditorPageState extends State<AvatarEditorPage> {
   @override
   void initState() {
-    getAvatarElements();
+    //getAvatarElements(context);
     super.initState();
   }
 
-  String bodyImage = true
-      ? "lib/resources/images/avatar/MaleBody.png"
-      : "lib/resources/images/avatar/FemaleBody.png";
+  @override
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    getAvatarElements(context);
+    _set = AvatarSet.copy(AppDataProvider.of(context)!.appData.avatar);
+  }
+
+  late final AvatarSet _set;
 
   Future<void> _selectColor(BuildContext context) async {
     Color pickerColor = Color(avatarGroups[currentElement].color.value);
@@ -118,7 +134,13 @@ class _AvatarEditorPageState extends State<AvatarEditorPage> {
           ElevatedButton(
             child: const Text('Выбрать'),
             onPressed: () {
-              setState(() => avatarGroups[currentElement].color = pickerColor);
+              setState(() {
+                avatarGroups[currentElement].color = pickerColor;
+                for (var element in avatarGroups[currentElement].elements) {
+                  element.color = pickerColor;
+                }
+                getByIndex(_set, currentElement).color = pickerColor;
+              });
               Navigator.of(context).pop();
             },
           ),
@@ -129,15 +151,42 @@ class _AvatarEditorPageState extends State<AvatarEditorPage> {
 
   @override
   Widget build(BuildContext context) {
+    const pathPrefixes = [
+      "hat/Hat",
+      "hair/Hair",
+      "face/Face",
+      "eyes/Eyes",
+      "mouth/Mouth",
+      "clothes/Clothes"
+    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Редактор'),
         actions: [
           IconButton(
               onPressed: () {
-                save();
+                save(context, _set).then((value) {
+                  context.router.pop(const ProfileRoute());
+                }).catchError((error) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Ошибка'),
+                      content: const Text('Нет соединения с сервером, попробуй сохранить еще раз'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pop(); // dismisses only the dialog and returns nothing
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                });
                 // ignore: deprecated_member_use
-                context.router.pop(const ProfileRoute());
+                //context.router.pop(const ProfileRoute());
               },
               icon: const Icon(Icons.save)),
           IconButton(
@@ -160,92 +209,8 @@ class _AvatarEditorPageState extends State<AvatarEditorPage> {
                 borderRadius: BorderRadius.circular(25),
               ),
               alignment: Alignment.center,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    //Тело
-                    padding: const EdgeInsets.only(top: 70),
-                    child: Image.asset(
-                      bodyImage,
-                      height: 30.h,
-                      color: avatarGroups[2].color,
-                    ),
-                  ),
-                  Container(
-                    //Лицо
-                    padding: const EdgeInsets.only(bottom: 90),
-                    child: Image(
-                      image: avatarGroups[2]
-                          .elements[avatarGroups[2].currentId]
-                          .image
-                          .image,
-                      color: avatarGroups[2].color,
-                      height: 70,
-                      width: 70,
-                    ),
-                  ),
-                  Container(
-                    //Волосы
-                    padding: const EdgeInsets.only(bottom: 90),
-                    child: Image(
-                      image: avatarGroups[1]
-                          .elements[avatarGroups[1].currentId]
-                          .image
-                          .image,
-                      color: avatarGroups[1].color,
-                      height: 10.h,
-                    ),
-                  ),
-                  Container(
-                    //Глаза
-                    padding: const EdgeInsets.only(bottom: 80),
-                    child: Image(
-                      image: avatarGroups[3]
-                          .elements[avatarGroups[3].currentId]
-                          .image
-                          .image,
-                      color: avatarGroups[3].color,
-                      height: 7.5.h,
-                    ),
-                  ),
-                  Container(
-                    //Рот
-                    padding: const EdgeInsets.only(bottom: 90),
-                    child: Image(
-                      image: avatarGroups[4]
-                          .elements[avatarGroups[4].currentId]
-                          .image
-                          .image,
-                      color: avatarGroups[4].color,
-                      height: 7.5.h,
-                    ),
-                  ),
-                  Container(
-                    //Шляпа
-                    padding: const EdgeInsets.only(bottom: 160),
-                    child: Image(
-                      image: avatarGroups[0]
-                          .elements[avatarGroups[0].currentId]
-                          .image
-                          .image,
-                      color: avatarGroups[0].color,
-                      height: 12.h,
-                    ),
-                  ),
-                  Container(
-                    //Одежда
-                    padding: const EdgeInsets.only(top: 70),
-                    child: Image(
-                      image: avatarGroups[5]
-                          .elements[avatarGroups[5].currentId]
-                          .image
-                          .image,
-                      color: avatarGroups[5].color,
-                      height: 30.h,
-                    ),
-                  ),
-                ],
+              child: Avatar(
+                elements: _set,
               ),
             ),
           ),
@@ -332,14 +297,32 @@ class _AvatarEditorPageState extends State<AvatarEditorPage> {
                     onPressed: () => {
                       setState(
                         () {
-                          avatarGroups[currentElement].currentId = index;
+                          switch(currentElement){
+                            case 0:
+                              _set.hat = avatarGroups[currentElement].elements[index];
+                              break;
+                            case 1:
+                              _set.hair = avatarGroups[currentElement].elements[index];
+                              break;
+                            case 2:
+                              _set.face = avatarGroups[currentElement].elements[index];
+                              break;
+                            case 3:
+                              _set.eyes = avatarGroups[currentElement].elements[index];
+                              break;
+                            case 4:
+                              _set.mouth = avatarGroups[currentElement].elements[index];
+                              break;
+                            case 5:
+                              _set.clothes = avatarGroups[currentElement].elements[index];
+                              break;
+                          }
                         },
                       ),
                     },
                     child: Image(
-                      image: avatarGroups[currentElement]
-                          .elements[index]
-                          .image
+                      image: Image.asset(
+                              'lib/resources/images/avatar/${pathPrefixes[currentElement]}$index.png')
                           .image,
                       color: avatarGroups[currentElement].color,
                       height: 75,
@@ -375,10 +358,4 @@ class AvatarGroupElement {
   void setIsSelect(bool isSelect) {
     this.isSelect = isSelect;
   }
-}
-
-class AvatarElement {
-  AvatarElement._(this.id, this.image);
-  int id;
-  Image image;
 }

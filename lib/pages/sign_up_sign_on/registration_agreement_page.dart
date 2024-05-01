@@ -5,7 +5,9 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 
 @RoutePage()
 class RegistrationAgreementPage extends StatefulWidget {
-  const RegistrationAgreementPage({super.key});
+  const RegistrationAgreementPage({super.key, required this.login, required this.password});
+
+  final String login; final String password;
 
   @override
   State<StatefulWidget> createState() => _RegistrationAgreementPageState();
@@ -17,8 +19,8 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
     super.initState();
   }
 
-  void registrationStepTwo(BuildContext context) {
-    context.router.push(const RegistrationContinueRoute());
+  void registrationStepTwo(BuildContext context, String login, String password) {
+    context.router.push(RegistrationContinueRoute(login: login, password: password));
   }
 
   String getAgreementText() {
@@ -84,7 +86,7 @@ class _RegistrationAgreementPageState extends State<RegistrationAgreementPage> {
                 padding: EdgeInsets.symmetric(vertical: 2.h),
                 child: ElevatedButton(
                   onPressed: () {
-                    registrationStepTwo(context);
+                    registrationStepTwo(context, widget.login, widget.password);
                   },
                   style: ButtonStyle(
                     alignment: Alignment.center,

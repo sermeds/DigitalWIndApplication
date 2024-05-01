@@ -10,27 +10,29 @@ class TestInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Информация о тесте")),
-      body: Center(
-        child: Column(
-          children: [
-            Text('Название: ${test.title}'),
-            Text('Процент за лучшую попытку: ${test.percent}'),
-            Text('Вопросы: ${test.questions.length}'),
-            Text(test.description ?? "Без описания"),
-          ],
+        appBar: AppBar(title: const Text("Информация о тесте")),
+        body: Center(
+          child: Column(
+            children: [
+              Text('Название: ${test.title}'),
+              Text('Процент за лучшую попытку: ${test.percent}'),
+              Text('Вопросы: ${test.questions.length}'),
+              Text(test.description ?? "Без описания"),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-          child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TestingPage(test: test)))
-                    .then((value) => Navigator.pop(context, value));
-              },
-              child: const Text("Пройти тест"))),
-    );
+        bottomNavigationBar: BottomAppBar(
+            child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TestingPage(test: test)))
+                      .then((value) => Navigator.pop(context, value));
+                },
+                child: Text(
+                  "Пройти тест",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ))));
   }
 }

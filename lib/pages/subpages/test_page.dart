@@ -39,6 +39,7 @@ class _TestingPageState extends State<TestingPage> {
                             controller: widget.subs[i])))
                     .values,
                 TextButton(
+                    style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: () {
                       var answers = widget.subs
                           .map((e) => e.value != null ? e.value as String : "")

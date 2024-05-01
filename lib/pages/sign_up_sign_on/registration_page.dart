@@ -27,7 +27,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     loginController.text;
     passwordController.text;
     if (true) {
-      context.router.push(const RegistrationAgreementRoute());
+      context.router.push(RegistrationAgreementRoute(login: loginController.text, password: passwordController.text));
     }
   }
 
@@ -151,7 +151,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             validator: (value) {
                               if (passwordController.text !=
                                   confirmPasswordController.text) {
-                                return 'Пароли не совавдвют!';
+                                return 'Пароли не совпадают!';
                               }
                               return null;
                             },
