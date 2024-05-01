@@ -30,8 +30,8 @@ class NavPanel extends StatelessWidget {
             icon: Icon(Icons.library_books), label: "Библиотека"),
       ],
       currentIndex: index,
-      unselectedItemColor: Theme.of(context).hintColor,
-      selectedItemColor: Theme.of(context).highlightColor,
+      unselectedItemColor: Theme.of(context).colorScheme.tertiary,
+      selectedItemColor: Theme.of(context).colorScheme.onPrimary,
       onTap: (index) {
         if (index != this.index) {
           context.router.replace(_routes[index]);
