@@ -22,16 +22,17 @@ class AppDataProvider extends InheritedWidget {
 class AppData {
   AppData({required this.settingsStorage, required this.testsStorage}) {
     testsStorage.readValue().then((value) {
-      for (var i in value!) {
-        tests.add(Test.fromJson(i));
+      if (value != null) {
+        for (var i in value) {
+          tests.add(Test.fromJson(i));
+        }
       }
     });
 
     settingsStorage.readValue().then((value) {
       if (value != null) {
         settings = Settings.fromJson(value);
-      }
-      else{
+      } else {
         settings = Settings();
         settingsStorage.writeValue(settings);
       }
