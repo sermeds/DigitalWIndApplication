@@ -1,4 +1,6 @@
-import 'package:digital_wind_application/utils/test_difficulty.dart';
+// ignore_for_file: constant_identifier_names
+
+import 'package:digital_wind_application/models/test_difficulty.dart';
 
 const int REWARD_XP = 1;
 const int REWARD_MONEY = 2;
