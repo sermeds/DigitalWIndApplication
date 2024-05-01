@@ -44,17 +44,18 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
         .then((value) {
       AppDataProvider.of(context)!.appData.tokens = value;
       AppDataProvider.of(context)!.appData.saveTokens();
-    });
-    AppDataProvider.of(context)!.appData.player = Player(
-        firstname: nameController.text,
-        balance: 0,
-        exp: 0,
-        sex: PlayerSex.values[currentGender],
-        lastname: dopNameController.text,
-        phone: phone,
-        birthday: DateTime.parse(dateController.text));
-    AppDataProvider.of(context)!.appData.savePlayer().then((value) {
-      context.router.replaceAll([const MainRoute()]);
+
+      AppDataProvider.of(context)!.appData.player = Player(
+          firstname: nameController.text,
+          balance: 0,
+          exp: 0,
+          sex: PlayerSex.values[currentGender],
+          lastname: dopNameController.text,
+          phone: phone,
+          birthday: DateTime.parse(dateController.text));
+      AppDataProvider.of(context)!.appData.savePlayer().then((value) {
+        context.router.replaceAll([const MainRoute()]);
+      });
     });
   }
 
