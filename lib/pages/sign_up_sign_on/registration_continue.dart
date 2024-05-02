@@ -8,6 +8,7 @@ import 'package:digital_wind_application/models/player.dart';
 import 'package:digital_wind_application/models/player_sex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:intl/intl.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 @RoutePage()
@@ -36,9 +37,10 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
       BuildContext context, String login, String password, PhoneNumber phone) {
     register(RegisterInfo(
             firstname: nameController.text,
+            lastname: dopNameController.text,
             sex: PlayerSex.values[currentGender],
-            phone: phone,
-            birthday: DateTime.parse(dateController.text),
+            phone: phone.toString(),
+            birthday: DateFormat('d/M/y').parse(dateController.text),
             login: login,
             password: password))
         .then((value) {

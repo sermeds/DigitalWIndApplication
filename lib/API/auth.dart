@@ -5,15 +5,26 @@ import "package:digital_wind_application/models/tokens.dart";
 import "package:http/http.dart" as http;
 
 Future<TokenTuple> authorize(String login, String password) {
-  return http.post(buildUri("/api/authenticate"), body: {
-    'login': login,
-    'password': password
-  }).then((res) => TokenTuple.fromJson(jsonDecode(res.body)));
+  return http
+      .post(buildUri("/api/authenticate"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'login': login,
+            'password': password,
+          }))
+      .then((res) => TokenTuple.fromJson(jsonDecode(res.body)));
 }
 
 Future<TokenTuple> register(RegisterInfo info) {
+  var js = jsonEncode(info);
   return http
-      .post(buildUri("/api/register"), body: jsonEncode(info))
+      .post(buildUri("/api/register"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(info))
       .then((res) => TokenTuple.fromJson(jsonDecode(res.body)));
 }
 
@@ -27,5 +38,5 @@ Future<TokenTuple> refresh(String refreshToken) {
 Future<bool> findByLogin(String login) async {
   return http
       .get(buildUri("/api/findByLogin?login=$login"))
-      .then((res) => res.body as bool);
+      .then((res) => res.body == "true");
 }

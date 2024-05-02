@@ -7,7 +7,7 @@ class RegisterInfo {
   String firstname;
   String? lastname;
   PlayerSex sex;
-  PhoneNumber phone;
+  String phone;
   DateTime birthday;
 
   RegisterInfo(
@@ -25,7 +25,7 @@ class RegisterInfo {
       password: json['password'],
       lastname: json['lastname'],
       sex: PlayerSex.fromJson(json['sex']),
-      phone: PhoneNumber.fromJson(json['phone']),
+      phone: json['phone'],
       birthday: DateTime.parse(json['birthday']));
 
   Map<String, dynamic> toJson() => {
