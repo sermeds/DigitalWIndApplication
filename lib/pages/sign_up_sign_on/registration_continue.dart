@@ -55,9 +55,8 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
           lastname: dopNameController.text,
           phone: phone,
           birthday: DateTime.parse(dateController.text));
-      AppDataProvider.of(context)!.appData.savePlayer().then((value) {
-        context.router.replaceAll([const MainRoute()]);
-      });
+      AppDataProvider.of(context)!.appData.savePlayer();
+      context.router.replaceAll([const MainRoute()]);
     });
   }
 
