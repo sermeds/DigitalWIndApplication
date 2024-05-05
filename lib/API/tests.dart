@@ -6,7 +6,7 @@ import "package:http/http.dart" as http;
 
 Future<List<Test>> getTests(String token) {
   return http.get(buildUri("/api/tests"), headers: {
-    'Authentication': 'Beare $token'
+    'Authentication': 'Bearer $token'
   }).then((res) => (jsonDecode(res.body) as List)
       .map((test) => Test.fromJson(test))
       .toList());
@@ -14,7 +14,7 @@ Future<List<Test>> getTests(String token) {
 
 Future<Test> getTest(int id, String token) {
   return http.get(buildUri("/api/test?testId=$id"), headers: {
-    'Authentication': 'Beare $token'
+    'Authentication': 'Bearer $token'
   }).then((res) => Test.fromJson(jsonDecode(res.body)));
 }
 

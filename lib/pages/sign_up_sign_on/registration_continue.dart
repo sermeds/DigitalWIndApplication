@@ -56,7 +56,6 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
           phone: phone,
           birthday: DateTime.parse(dateController.text));
       AppDataProvider.of(context)!.appData.savePlayer();
-      
     });
     context.router.replaceAll([const MainRoute()]);
   }
@@ -86,7 +85,7 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
               SizedBox(
                 width: 80.h,
                 child: Text(
-                  "Finigra",
+                  "Finigram",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),

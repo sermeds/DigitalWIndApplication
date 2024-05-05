@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:phone_form_field/phone_form_field.dart';
+import "package:http/http.dart" as http;
 
 @RoutePage()
 class RegistrationPage extends StatefulWidget {
@@ -30,6 +31,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Future<bool> loginOriginality() async {
+    // String text = loginController.text;
+    // http.Response res1 = await http.get(
+    //   Uri.parse("http://localhost:8080/api/findByLogin?login=Kuplinov"),
+    //   headers: <String, String>{
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //   },
+    // );
+    // loginController.text = res1.statusCode.toString();
+    // passwordController.text = res1.body;
     return !await findByLogin(loginController.text);
   }
 

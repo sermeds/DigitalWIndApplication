@@ -36,7 +36,10 @@ Future<TokenTuple> refresh(String refreshToken) {
 }
 
 Future<bool> findByLogin(String login) async {
-  return http
-      .get(buildUri("/api/findByLogin?login=$login"))
-      .then((res) => res.body == "true");
+  return http.get(
+    buildUri("/api/findByLogin?login=$login"),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  ).then((res) => res.body == "true");
 }
