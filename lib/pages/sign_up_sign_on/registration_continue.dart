@@ -56,8 +56,9 @@ class _RegistrationContinuePageState extends State<RegistrationContinuePage> {
           phone: phone,
           birthday: DateTime.parse(dateController.text));
       AppDataProvider.of(context)!.appData.savePlayer();
-      context.router.replaceAll([const MainRoute()]);
+      
     });
+    context.router.replaceAll([const MainRoute()]);
   }
 
   final _formKey = GlobalKey<FormState>();
